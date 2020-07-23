@@ -11,7 +11,7 @@ function setButtons(number) {
       if (number === 1 && this.id === "maj-2") {
         alert("that's right - it was a major 2nd interval!");
       } else if (this.id !== "maj-2" && this.id !== "start-button") {
-        alert("Wrong!");
+        alert("You're wrong!");
       }
     };
   }
