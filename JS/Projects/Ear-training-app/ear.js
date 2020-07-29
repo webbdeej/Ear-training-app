@@ -9,22 +9,17 @@ document.getElementById("start-button").addEventListener("click", function () {
 
 //
 
-
-
-
 //write function to trigger sounds
 
 function triggerSounds(interval) {
-if (interval === 1) {
-  document.getElementById('maj-3-sound').play();
-} else if (interval === 2) {
-    document.getElementById('perf-5th-sound').play();
-} else (interval === 3) {
-  document.getElementById('octave-sound').play();
- }
-
+  if (interval === 1) {
+    document.getElementById("maj-3-sound").play();
+  } else if (interval === 2) {
+    document.getElementById("perf-5th-sound").play();
+  } else if (interval === 3) {
+    document.getElementById("octave-sound").play();
+  }
 }
-
 
 function setButtons(number) {
   let buttons = document.getElementsByTagName("button");
