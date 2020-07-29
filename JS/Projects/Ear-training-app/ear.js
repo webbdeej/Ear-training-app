@@ -2,9 +2,9 @@
 
 document.getElementById("start-button").addEventListener("click", function () {
   let random = Math.floor(Math.random() * 3) + 1;
+  triggerSounds(random);
   console.log(random);
   setButtons(random);
-  triggerSounds(random);
 });
 
 //
@@ -27,7 +27,29 @@ function setButtons(number) {
     buttons[i].onclick = function (e) {
       if (number === 1 && this.id === "maj-3") {
         alert("that's right - it was a major 3rd interval!");
-      } else if (this.id !== "maj-3" && this.id !== "start-button") {
+      } else if (
+        number === 1 &&
+        this.id !== "maj-3" &&
+        this.id !== "start-button"
+      ) {
+        alert("You're wrong!");
+      }
+      if (number === 2 && this.id === "perf-5") {
+        alert("that's right - it was a a perfect 5th interval!");
+      } else if (
+        number === 2 &&
+        this.id !== "perf-5" &&
+        this.id !== "start-button"
+      ) {
+        alert("You're wrong!");
+      }
+      if (number === 3 && this.id === "octave") {
+        alert("that's right - it was an octave interval!");
+      } else if (
+        number === 3 &&
+        this.id !== "octave" &&
+        this.id !== "start-button"
+      ) {
         alert("You're wrong!");
       }
     };
