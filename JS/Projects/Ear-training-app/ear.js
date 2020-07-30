@@ -21,12 +21,19 @@ function triggerSounds(interval) {
   }
 }
 
+//set set buttons
+// set scores
+
 function setButtons(number) {
+  let score = document.getElementById("score-num");
+  let num = +score.innerHTML;
   let buttons = document.getElementsByTagName("button");
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].onclick = function (e) {
       if (number === 1 && this.id === "maj-3") {
-        alert("that's right - it was a major 3rd interval!");
+        alert("That's right - it was a major 3rd interval!");
+        num = num + 2;
+        score.innerHTML = num;
       } else if (
         number === 1 &&
         this.id !== "maj-3" &&
@@ -35,7 +42,9 @@ function setButtons(number) {
         alert("You're wrong!");
       }
       if (number === 2 && this.id === "perf-5") {
-        alert("that's right - it was a a perfect 5th interval!");
+        alert("That's right - it was a a perfect 5th interval!");
+        num = num + 2;
+        score.innerHTML = num;
       } else if (
         number === 2 &&
         this.id !== "perf-5" &&
@@ -44,7 +53,9 @@ function setButtons(number) {
         alert("You're wrong!");
       }
       if (number === 3 && this.id === "octave") {
-        alert("that's right - it was an octave interval!");
+        alert("That's right - it was an octave interval!");
+        num = num + 2;
+        score.innerHTML = num;
       } else if (
         number === 3 &&
         this.id !== "octave" &&
