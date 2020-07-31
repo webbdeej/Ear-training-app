@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <link rel="stylesheet" href="ear.css" />
@@ -16,13 +17,17 @@
       <source src="octave.mp3" type="audio/mpeg" />
     </audio>
 
-    <h2>SCORE:<span id="score-num"> 0</span></h2>
+    <h2 id="first-h2">
+      SCORE:&nbsp;<span id="score-num">0</span>&nbsp;out of 10
+    </h2>
 
-    <button id="start-button">START</button>
+    <div id="start-wrapper">
+      <button id="start-button">START</button>
 
-    <button id="maj-3">MAJ 3RD</button>
-    <button id="perf-5">PERFECT 5TH</button>
-    <button id="octave">OCTAVE</button>
+      <button id="maj-3">MAJ 3RD</button>
+      <button id="perf-5">PERFECT 5TH</button>
+      <button id="octave">OCTAVE</button>
+    </div>
 
     <script type="text/javascript" src="ear.js"></script>
   </body>
