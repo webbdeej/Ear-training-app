@@ -1,8 +1,9 @@
-
-let sideButtons = document.querySelectorAll('div.side-buttons button');
+let sideButtons = document.querySelectorAll("div.side-buttons button");
+let chooseButtons = document
+  .getElementById("choice-buttons-div")
+  .getElementsByTagName("button");
 let intervalArray = [];
 let questionNum = 0;
-
 
 for (let i = 0; i < sideButtons.length; i++) {
   sideButtons[i].onclick = function (e) {
@@ -10,28 +11,95 @@ for (let i = 0; i < sideButtons.length; i++) {
     let buttonHTML = this.innerHTML;
 
     //link to create choice button function
-    choiceButtons(buttonHTML)
-  }
+    choiceButtons(buttonHTML);
+  };
 }
 
 function choiceButtons(innerText) {
-  //create button
-let choiceBtn = document.createElement("BUTTON");
+  if (intervalArray.indexOf(innerText) === -1) {
+    //create button
+    let choiceBtn = document.createElement("BUTTON");
 
-//add inner text to choice buttons
-choiceBtn.innerHTML = innerText;
+    //add inner text to choice buttons
+    choiceBtn.innerHTML = innerText;
 
-//append to choce-buttons-div
-document.getElementById("choice-buttons-div").appendChild(choiceBtn);
-choiceBtn.className = "choice-buttons";
-      //push innerText to array
-      intervalArray.push(innerText);
-      console.log(intervalArray);  
+    //append to choce-buttons-div
+    document.getElementById("choice-buttons-div").appendChild(choiceBtn);
+    choiceBtn.className = "choice-buttons";
+    //push innerText to array
+    intervalArray.push(innerText);
+    console.log(intervalArray);
+    //setButtons(innerText);
+  }
 }
 
 document.getElementById("start-button").addEventListener("click", function () {
-  
-}  
+  let random = Math.floor(Math.random() * intervalArray.length);
+  console.log(intervalArray[random]);
+  let randomInterval = intervalArray[random];
+  triggerSounds(randomInterval);
+  questionNum++;
+  console.log("this is question " + questionNum);
+  setScore(randomInterval);
+});
+
+function triggerSounds(randomInterval) {
+  switch (randomInterval) {
+    case "UNISON":
+      document.getElementById("unison-sound").play();
+      break;
+    case "MINOR SECOND":
+      //play UNISON
+      break;
+    case "MAJOR SECOND":
+      //play UNISON
+      break;
+    case "MINOR THIRD":
+      //play UNISON
+      break;
+    case "MAJOR THIRD":
+      document.getElementById("maj-3-sound").play();
+      break;
+    case "FOURTH":
+      //play UNISON
+      break;
+    case "DIMINSHED FIFTH":
+      //play UNISON
+      break;
+    case "FIFTH":
+      document.getElementById("perf-5th-sound").play();
+      break;
+    case "MINOR SIXTH":
+      //play UNISON
+      break;
+    case "MAJOR SIXTH":
+      //play UNISON
+      break;
+    case "MINOR SEVENTH":
+      //play UNISON
+      break;
+    case "MAJOR SEVENTH":
+      //play UNISON
+      break;
+    case "OCTAVE":
+      document.getElementById("octave-sound").play();
+      break;
+  }
+}
+
+function setScore(randomInterval) {
+  let score = document.getElementById("score-num");
+  let num = +score.innerHTML;
+  for (i in chooseButtons) {
+    chooseButtons[i].onclick = function (e) {
+      if (this.innerHTML === randomInterval) {
+        alert("That's right!");
+        num++;
+        score.innerHTML = num;
+      } else alert("That's the wrong answer!");
+    };
+  }
+}
 
 //generate random number between 1 and 3
 /*let questionNum = 0;
@@ -84,7 +152,6 @@ if (questionNum <=10) {
 
 //set set buttons
 // set scores*/
-
 
 /*function setButtons(number, questionNum) {
   let score = document.getElementById('score-num')
