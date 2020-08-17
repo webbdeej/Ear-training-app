@@ -4,24 +4,74 @@ let chooseButtons = document
   .getElementsByTagName("button");
 let intervalArray = [];
 let questionNum = 0;
+let sideArray = [];
 
 for (let i = 0; i < sideButtons.length; i++) {
-  sideButtons[i].onclick = function (e) {
-    //alert (this.innerHTML)
-    let buttonHTML = this.innerHTML;
+  if (sideButtons[i].textContent !== "RANDOM") {
+    sideButtons[i].onclick = function (e) {
+      //alert (this.innerHTML)
+      let buttonHTML = this.textContent;
 
-    //link to create choice button function
-    choiceButtons(buttonHTML);
-  };
+      //link to create choice button function
+      choiceButtons(buttonHTML);
+    };
+  }
 }
 
+/*function noDuplicates (sideRandom, array) {
+  array.splice(array.length-1, 1);
+  console.log(array);
+  let sideRandom2 = Math.floor(Math.random() * 14) + 1;
+  sideArray.push(sideRandom2);
+  console.log("I've had to add " + sideRandom2)
+}*/
+
+function sortNumbers(array) {
+  array.sort(function (a, b) {
+    return a - b;
+  });
+}
+
+function orderButtons(array) {
+  for (i in array) {
+    if (array.length >= 3) {
+      sortNumbers(array);
+      let sideElements = array[i];
+      choiceButtons(sideButtons[sideElements].textContent);
+
+      console.log(array);
+    }
+  }
+}
+
+document.getElementById("randomiser").addEventListener("click", function () {
+  let sideArray = [];
+  let duplicate = false;
+  for (let i = 0; sideArray.length < 3; i++) {
+    let sideRandom = Math.floor(Math.random() * 14) + 1;
+
+    console.log(sideRandom);
+    if (sideArray.includes(sideRandom) === false) {
+      if (duplicate) {
+        duplicate = false;
+        console.log("I've had to add " + sideRandom);
+      }
+      sideArray.push(sideRandom);
+    } else {
+      double = true;
+    }
+  }
+  console.log(sideArray.toString());
+  orderButtons(sideArray);
+});
+
 function choiceButtons(innerText) {
+  //create button
   if (intervalArray.indexOf(innerText) === -1) {
-    //create button
     let choiceBtn = document.createElement("BUTTON");
 
     //add inner text to choice buttons
-    choiceBtn.innerHTML = innerText;
+    choiceBtn.textContent = innerText;
 
     //append to choce-buttons-div
     document.getElementById("choice-buttons-div").appendChild(choiceBtn);
@@ -45,44 +95,47 @@ document.getElementById("start-button").addEventListener("click", function () {
 
 function triggerSounds(randomInterval) {
   switch (randomInterval) {
-    case "UNISON":
-      document.getElementById("unison-sound").play();
-      break;
     case "MINOR SECOND":
-      //play UNISON
+      document.getElementById("min-2-sound").play();
       break;
     case "MAJOR SECOND":
-      //play UNISON
+      document.getElementById("maj-2-sound").play();
       break;
     case "MINOR THIRD":
-      //play UNISON
+      document.getElementById("min-3-sound").play();
       break;
     case "MAJOR THIRD":
       document.getElementById("maj-3-sound").play();
       break;
     case "FOURTH":
-      //play UNISON
+      document.getElementById("perf-4-sound").play();
       break;
     case "DIMINSHED FIFTH":
-      //play UNISON
+      document.getElementById("dim-5-sound").play();
       break;
     case "FIFTH":
-      document.getElementById("perf-5th-sound").play();
+      document.getElementById("perf-5-sound").play();
       break;
     case "MINOR SIXTH":
-      //play UNISON
+      document.getElementById("min-6-sound").play();
       break;
     case "MAJOR SIXTH":
-      //play UNISON
+      document.getElementById("maj-6-sound").play();
       break;
     case "MINOR SEVENTH":
-      //play UNISON
+      document.getElementById("min-7-sound").play();
       break;
     case "MAJOR SEVENTH":
-      //play UNISON
+      document.getElementById("maj-7-sound").play();
       break;
     case "OCTAVE":
       document.getElementById("octave-sound").play();
+      break;
+    case "MINOR NINTH":
+      document.getElementById("min-9-sound").play();
+      break;
+    case "MAJOR NINTH":
+      document.getElementById("maj-9-sound").play();
       break;
   }
 }
