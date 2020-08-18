@@ -46,19 +46,13 @@ function orderButtons(array) {
 
 document.getElementById("randomiser").addEventListener("click", function () {
   let sideArray = [];
-  let duplicate = false;
   for (let i = 0; sideArray.length < 3; i++) {
     let sideRandom = Math.floor(Math.random() * 14) + 1;
-
     console.log(sideRandom);
-    if (sideArray.includes(sideRandom) === false) {
-      if (duplicate) {
-        duplicate = false;
-        console.log("I've had to add " + sideRandom);
-      }
+    if (!sideArray.includes(sideRandom)) {
       sideArray.push(sideRandom);
     } else {
-      double = true;
+      continue;
     }
   }
   console.log(sideArray.toString());
@@ -85,9 +79,9 @@ function choiceButtons(innerText) {
 
 document.getElementById("start-button").addEventListener("click", function () {
   let random = Math.floor(Math.random() * intervalArray.length);
-  console.log(intervalArray[random]);
   let randomInterval = intervalArray[random];
   triggerSounds(randomInterval);
+  console.log(intervalArray[random]);
   questionNum++;
   console.log("this is question " + questionNum);
   setScore(randomInterval);
