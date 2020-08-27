@@ -1,83 +1,64 @@
 let sideButtons = document.querySelectorAll("div.side-buttons button");
+let rightButtons = document.getElementById("right-buttons");
+
 let chooseButtons = document
   .getElementById("choice-buttons-div")
   .getElementsByTagName("button");
+let chooseDiv = document.getElementById("choice-buttons-div");
 let intervalArray = [];
 let questionNum = 0;
 let sideArray = [];
+//let start = 2;
 
+//when side buttons are clicked, this toggles the 'on' class
 for (let i = 0; i < sideButtons.length; i++) {
   if (sideButtons[i].textContent !== "RANDOM") {
     sideButtons[i].onclick = function (e) {
-      //alert (this.innerHTML)
-      let buttonHTML = this.textContent;
+      //let textContent = this.textContent;
 
-      //link to create choice button function
-      choiceButtons(buttonHTML);
+      this.classList.toggle("on");
+      let classArray = this.className.split(" ");
+      let buttonNum = +classArray[0];
+      let index = sideArray.indexOf(buttonNum);
+      let textContent = this.textContent;
+
+      if (this.classList.contains("on")) {
+        this.style.backgroundColor = "#428BCA";
+        if (sideArray.includes(buttonNum === false)) {
+          sideArray.push(buttonNum);
+        }
+        console.log(sideArray);
+        choiceButtons(this.textContent);
+        let intIndex = intervalArray.indexOf(textContent);
+
+        console.log(intervalArray);
+        chooseButtons[i - 1].classList.remove("choice-off");
+      } else {
+        this.style.backgroundColor = "";
+        chooseButtons[i - 1].classList.add("choice-off");
+        console.log("text for this button is " + this.textContent);
+        let intIndex = intervalArray.indexOf(this.textContent);
+        intervalArray.splice(intIndex, 1);
+        console.log(intervalArray);
+        sideArray.splice(index, 1);
+      }
     };
   }
 }
 
-/*function noDuplicates (sideRandom, array) {
-  array.splice(array.length-1, 1);
-  console.log(array);
-  let sideRandom2 = Math.floor(Math.random() * 14) + 1;
-  sideArray.push(sideRandom2);
-  console.log("I've had to add " + sideRandom2)
-}*/
-
-function sortNumbers(array) {
-  array.sort(function (a, b) {
-    return a - b;
-  });
-}
-
-function orderButtons(array) {
-  for (i in array) {
-    if (array.length >= 3) {
-      sortNumbers(array);
-      let sideElements = array[i];
-      choiceButtons(sideButtons[sideElements].textContent);
-
-      console.log(array);
-    }
-  }
-}
-
-document.getElementById("randomiser").addEventListener("click", function () {
-  let sideArray = [];
-  for (let i = 0; sideArray.length < 3; i++) {
-    let sideRandom = Math.floor(Math.random() * 14) + 1;
-    console.log(sideRandom);
-    if (!sideArray.includes(sideRandom)) {
-      sideArray.push(sideRandom);
-    } else {
-      continue;
-    }
-  }
-  console.log(sideArray.toString());
-  orderButtons(sideArray);
-});
+//create buttons
 
 function choiceButtons(innerText) {
   //create button
+
   if (intervalArray.indexOf(innerText) === -1) {
-    let choiceBtn = document.createElement("BUTTON");
-
-    //add inner text to choice buttons
-    choiceBtn.textContent = innerText;
-
-    //append to choce-buttons-div
-    document.getElementById("choice-buttons-div").appendChild(choiceBtn);
-    choiceBtn.className = "choice-buttons";
-    //push innerText to array
-    intervalArray.push(innerText);
     console.log(intervalArray);
-    //setButtons(innerText);
+    intervalArray.push(innerText);
   }
 }
 
 document.getElementById("start-button").addEventListener("click", function () {
+  buttonDisable();
   let random = Math.floor(Math.random() * intervalArray.length);
   let randomInterval = intervalArray[random];
   triggerSounds(randomInterval);
@@ -85,6 +66,8 @@ document.getElementById("start-button").addEventListener("click", function () {
   questionNum++;
   console.log("this is question " + questionNum);
   setScore(randomInterval);
+  document.getElementById("choice").style.visibility = "visible";
+  document.getElementById("choice-heading").style.visibility = "visible";
 });
 
 function triggerSounds(randomInterval) {
@@ -104,7 +87,7 @@ function triggerSounds(randomInterval) {
     case "FOURTH":
       document.getElementById("perf-4-sound").play();
       break;
-    case "DIMINSHED FIFTH":
+    case "DIMINISHED FIFTH":
       document.getElementById("dim-5-sound").play();
       break;
     case "FIFTH":
@@ -134,133 +117,58 @@ function triggerSounds(randomInterval) {
   }
 }
 
+function buttonDisable() {
+  document.getElementById("minor-second").disabled = true;
+  document.getElementById("major-second").disabled = true;
+  document.getElementById("minor-third").disabled = true;
+  document.getElementById("major-third").disabled = true;
+  document.getElementById("perf-fourth").disabled = true;
+  document.getElementById("dim-fifth").disabled = true;
+  document.getElementById("fifth").disabled = true;
+  document.getElementById("minor-sixth").disabled = true;
+  document.getElementById("major-sixth").disabled = true;
+  document.getElementById("minor-seventh").disabled = true;
+  document.getElementById("major-seventh").disabled = true;
+  document.getElementById("octave-button").disabled = true;
+  document.getElementById("minor-ninth").disabled = true;
+  document.getElementById("major-ninth").disabled = true;
+}
+
+function clear(array) {
+  document.getElementById("clear").addEventListener("click", function () {
+    let parent = chooseDiv;
+    removeAllChildNodes(parent);
+  });
+}
+
 function setScore(randomInterval) {
   let score = document.getElementById("score-num");
-  let num = +score.innerHTML;
+  let num = +score.textContent;
   for (i in chooseButtons) {
     chooseButtons[i].onclick = function (e) {
-      if (this.innerHTML === randomInterval) {
+      if (this.textContent === randomInterval) {
         alert("That's right!");
         num++;
-        score.innerHTML = num;
-      } else alert("That's the wrong answer!");
+        score.textContent = num;
+      } else if (this.textContent !== randomInterval) {
+        alert("That's the wrong answer!");
+      }
     };
   }
 }
 
-//generate random number between 1 and 3
-/*let questionNum = 0;
+function random(array) {}
 
-document.getElementById("start-button").addEventListener("click", function () {
-  buttonEnable ();
-
-  let random = Math.floor(Math.random() * 3) + 1;
-  questionNum++
-  console.log("this is question " + questionNum)
-  questionNum < 10? this.textContent = "NEXT QUESTION": this.textContent = "GET YOUR SCORE";
-  triggerSounds(random);
-  console.log(random);
-  setButtons(random, questionNum);
+document.getElementById("randomiser").addEventListener("click", function () {
+  for (let i = 0; sideArray.length < 3; i++) {
+    let sideRandom = Math.floor(Math.random() * 14) + 1;
+    console.log(sideRandom);
+    if (!sideArray.includes(sideRandom)) {
+      sideButtons[sideRandom].click();
+      sideArray.push(sideRandom);
+    } else {
+      continue;
+    }
+  }
+  console.log(sideArray.toString());
 });
-
-// declare score
-
-function declareScore (score) {
-  let firstH2 = document.getElementById('first-h2');
-  document.body.removeChild(firstH2);
-  let h2tag = document.createElement("H2");
-    let textNode = document.createTextNode("Your score is " + score + " out of 10!");
-    h2tag.appendChild(textNode);
-    document.body.appendChild(h2tag);
-    buttonDisable ();
-    document.getElementById('start-button').disabled = true;
-
-
-  //console.log("Your score is " + score + " out of 10!");
-}
-
-
-
-//write function to trigger sounds
-
-/*function triggerSounds(interval) {
-if (questionNum <=10) {
-  if (interval === 1) {
-      document.getElementById('maj-3-sound').play();
-    } else if (interval === 2) {
-        document.getElementById('perf-5th-sound').play();
-    } else if (interval === 3) {
-      document.getElementById('octave-sound').play();
-   }
-  }
-}
-
-
-
-//set set buttons
-// set scores*/
-
-/*function setButtons(number, questionNum) {
-  let score = document.getElementById('score-num')
-  let num = +(score.innerHTML);
-  let buttons = document.getElementsByTagName("button");
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = function (e) {
-      if (number === 1 && this.id === "maj-3") {
-        alert("That's right - it was a major 3rd interval!");
-            num++;
-            score.innerHTML = num;
-              buttonDisable ();
-
-      } else if (number === 1 && this.id !== "maj-3" && this.id !== "start-button") {
-        alert("You're wrong!");
-            questionNum++;
-            console.log("we're moving to " + questionNum);
-            buttonDisable ();
-
-      } if (number === 2 && this.id === "perf-5") {
-        alert("That's right - it was a a perfect 5th interval!");
-            num++;
-            score.innerHTML = num;
-              buttonDisable ();
-
-      } else if (number === 2 && this.id !== "perf-5" && this.id !== "start-button") {
-        alert("You're wrong!");
-            questionNum++;
-            console.log("we're moving to " + questionNum);
-            buttonDisable ();
-
-    } if (number === 3 && this.id === "octave") {
-      alert("That's right - it was an octave interval!");
-          num++;
-          score.innerHTML = num;
-            buttonDisable ();
-    } else if (number === 3 && this.id !== "octave" && this.id !== "start-button") {
-      alert("You're wrong!");
-          questionNum++;
-          console.log("we're moving to " + questionNum);
-          buttonDisable ();
-
-   }
-  }
- }
-
-if (questionNum  > 10) {
-  declareScore (num);
-  }
-
-  }
-
-
-function buttonDisable () {
-  document.getElementById('maj-3').disabled = true;
-  document.getElementById('perf-5').disabled = true;
-  document.getElementById('octave').disabled = true;
-}
-
-function buttonEnable () {
-  document.getElementById('maj-3').disabled = false;
-  document.getElementById('perf-5').disabled = false;
-  document.getElementById('octave').disabled = false;
-}
-*/
