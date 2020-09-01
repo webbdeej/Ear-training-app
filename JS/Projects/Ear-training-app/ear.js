@@ -8,7 +8,23 @@ let chooseDiv = document.getElementById("choice-buttons-div");
 let intervalArray = [];
 let questionNum = 0;
 let sideArray = [];
-//let start = 2;
+
+let soundFiles = {
+  "MINOR SECOND": "min-2nd.mp3",
+  "MAJOR SECOND": "maj-2nd.mp3",
+  "MINOR THIRD": "min-3rd.mp3",
+  "MAJOR THIRD": "maj-3rd.mp3",
+  FOURTH: "perf-4th.mp3",
+  "DIMINISHED FIFTH": "dim-5th.mp3",
+  FIFTH: "perf-5th.mp3",
+  "MINOR SIXTH": "min-6th.mp3",
+  "MAJOR SIXTH": "maj-6th.mp3",
+  "MINOR SEVENTH": "min-7th.mp3",
+  "MAJOR SEVENTH": "maj-7th.mp3",
+  OCTAVE: "octave.mp3",
+  "MINOR NINTH": "min-9th.mp3",
+  "MAJOR NINTH": "maj-9th.mp3",
+};
 
 //when side buttons are clicked, this toggles the 'on' class
 for (let i = 0; i < sideButtons.length; i++) {
@@ -28,7 +44,7 @@ for (let i = 0; i < sideButtons.length; i++) {
           sideArray.push(buttonNum);
         }
         console.log(sideArray);
-        choiceButtons(this.textContent);
+        choiceButtons(textContent);
         let intIndex = intervalArray.indexOf(textContent);
 
         console.log(intervalArray);
@@ -71,51 +87,78 @@ document.getElementById("start-button").addEventListener("click", function () {
 });
 
 function triggerSounds(randomInterval) {
-  switch (randomInterval) {
-    case "MINOR SECOND":
-      document.getElementById("min-2-sound").play();
-      break;
-    case "MAJOR SECOND":
-      document.getElementById("maj-2-sound").play();
-      break;
-    case "MINOR THIRD":
-      document.getElementById("min-3-sound").play();
-      break;
-    case "MAJOR THIRD":
-      document.getElementById("maj-3-sound").play();
-      break;
-    case "FOURTH":
-      document.getElementById("perf-4-sound").play();
-      break;
-    case "DIMINISHED FIFTH":
-      document.getElementById("dim-5-sound").play();
-      break;
-    case "FIFTH":
-      document.getElementById("perf-5-sound").play();
-      break;
-    case "MINOR SIXTH":
-      document.getElementById("min-6-sound").play();
-      break;
-    case "MAJOR SIXTH":
-      document.getElementById("maj-6-sound").play();
-      break;
-    case "MINOR SEVENTH":
-      document.getElementById("min-7-sound").play();
-      break;
-    case "MAJOR SEVENTH":
-      document.getElementById("maj-7-sound").play();
-      break;
-    case "OCTAVE":
-      document.getElementById("octave-sound").play();
-      break;
-    case "MINOR NINTH":
-      document.getElementById("min-9-sound").play();
-      break;
-    case "MAJOR NINTH":
-      document.getElementById("maj-9-sound").play();
-      break;
+  let audio = document.getElementById("my-audio");
+  let ascending = document.getElementById("ascending");
+  let descending = document.getElementById("descending");
+  let ascendDescend = document.getElementById("ascend-descend");
+  let ascendAudio = "Audio/ascending/" + soundFiles[randomInterval];
+  let descendAudio = "Audio/descending/" + soundFiles[randomInterval];
+  let harmonicAudio = "Audio/harmonic/" + soundFiles[randomInterval];
+
+  if (ascending.selected) {
+    audio.setAttribute("src", ascendAudio);
+  } else if (descending.selected === true) {
+    audio.setAttribute("src", descendAudio);
+  } else if (harmonic.selected) {
+    audio.setAttribute("src", harmonicAudio);
+  } else if (ascendDescend.selected === true) {
+    let whichOne = Math.floor(Math.random() * 2);
+    console.log("random num = " + whichOne);
+    whichOne === 0
+      ? audio.setAttribute("src", ascendAudio)
+      : audio.setAttribute("src", descendAudio);
   }
+  audio.play();
+  //document.getElementById("my-audio").play;
+  console.log(audio);
+  //audio.play();
+  //document.getElementById("my-audio").play();
 }
+
+/*switch(randomInterval) {
+    case "MINOR SECOND":
+      document.getElementById('min-2-sound').play();
+    break;
+    case "MAJOR SECOND":
+      document.getElementById('maj-2-sound').play();
+    break;
+    case "MINOR THIRD":
+      document.getElementById('min-3-sound').play();
+    break;
+    case "MAJOR THIRD":
+    document.getElementById('maj-3-sound').play();
+    break;
+    case "FOURTH":
+      document.getElementById('perf-4-sound').play();
+    break;
+    case "DIMINISHED FIFTH":
+      document.getElementById('dim-5-sound').play();
+    break;
+    case "FIFTH":
+    document.getElementById('perf-5-sound').play();
+    break;
+    case "MINOR SIXTH":
+      document.getElementById('min-6-sound').play();
+    break;
+    case "MAJOR SIXTH":
+      document.getElementById('maj-6-sound').play();
+    break;
+    case "MINOR SEVENTH":
+      document.getElementById('min-7-sound').play();
+    break;
+    case "MAJOR SEVENTH":
+    document.getElementById('maj-7-sound').play();
+    break;
+    case "OCTAVE":
+    document.getElementById('octave-sound').play();
+    break;
+    case "MINOR NINTH":
+    document.getElementById('min-9-sound').play();
+    break
+    case "MAJOR NINTH":
+    document.getElementById('maj-9-sound').play();
+    break;
+  }*/
 
 function buttonDisable() {
   document.getElementById("minor-second").disabled = true;
@@ -156,8 +199,6 @@ function setScore(randomInterval) {
     };
   }
 }
-
-function random(array) {}
 
 document.getElementById("randomiser").addEventListener("click", function () {
   for (let i = 0; sideArray.length < 3; i++) {

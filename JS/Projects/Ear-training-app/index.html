@@ -5,61 +5,52 @@
     <link rel="stylesheet" href="ear.css" />
   </head>
   <body>
-    <audio id="min-2-sound">
+    <audio id="my-audio">
+      <source src=" " type="audio/mpeg" />
+    </audio>
+
+    <!--<audio id="min-2-sound">
       <source src="Audio/min-2nd.mp3" type="audio/mpeg" />
     </audio>
-
     <audio id="maj-2-sound">
-      <source src="Audio/maj-2nd.mp3" type="audio/mpeg" />
-    </audio>
-
+        <source src="Audio/maj-2nd.mp3" type="audio/mpeg" />
+      </audio>
     <audio id="min-3-sound">
       <source src="Audio/min-3rd.mp3" type="audio/mpeg" />
     </audio>
-
     <audio id="maj-3-sound">
       <source src="Audio/maj-3rd.mp3" type="audio/mpeg" />
     </audio>
-
     <audio id="perf-4-sound">
-      <source src="Audio/perf-4th.mp3" type="audio/mpeg" />
-    </audio>
-
-    <audio id="dim-5-sound">
-      <source src="Audio/dim-5th.mp3" type="audio/mpeg" />
-    </audio>
-
+        <source src="Audio/perf-4th.mp3" type="audio/mpeg" />
+      </audio>
+      <audio id="dim-5-sound">
+          <source src="Audio/dim-5th.mp3" type="audio/mpeg" />
+        </audio>
     <audio id="perf-5-sound">
       <source src="Audio/perf-5th.mp3" type="audio/mpeg" />
     </audio>
-
     <audio id="min-6-sound">
-      <source src="Audio/min-6th.mp3" type="audio/mpeg" />
-    </audio>
-
-    <audio id="maj-6-sound">
-      <source src="Audio/maj-6th.mp3" type="audio/mpeg" />
-    </audio>
-
-    <audio id="min-7-sound">
-      <source src="Audio/min-7th.mp3" type="audio/mpeg" />
-    </audio>
-
-    <audio id="maj-7-sound">
-      <source src="Audio/maj-7th.mp3" type="audio/mpeg" />
-    </audio>
-
+        <source src="Audio/min-6th.mp3" type="audio/mpeg" />
+      </audio>
+      <audio id ="maj-6-sound">
+          <source src="Audio/maj-6th.mp3" type="audio/mpeg" />
+        </audio>
+        <audio id="min-7-sound">
+            <source src="Audio/min-7th.mp3" type="audio/mpeg" />
+        </audio>
+        <audio id="maj-7-sound">
+            <source src="Audio/maj-7th.mp3" type="audio/mpeg" />
+        </audio>
     <audio id="octave-sound">
       <source src="Audio/octave.mp3" type="audio/mpeg" />
     </audio>
-
     <audio id="min-9-sound">
-      <source src="Audio/min-9th.mp3" type="audio/mpeg" />
-    </audio>
-
-    <audio id="maj-9-sound">
-      <source src="Audio/maj-9th.mp3" type="audio/mpeg" />
-    </audio>
+        <source src="Audio/min-9th.mp3" type="audio/mpeg" />
+      </audio>
+      <audio id="maj-9-sound">
+          <source src="Audio/maj-9th.mp3" type="audio/mpeg" />
+        </audio>-->
 
     <h2 id="first-h2">
       SCORE:&nbsp;<span id="score-num">0</span>&nbsp;out of 10
@@ -67,6 +58,7 @@
 
     <div id="start-wrapper">
       <button id="start-button">START</button>
+      <!--<audio id="hear-again" controls>-->
     </div>
     <h2 id="choice-heading">CHOICES</h2>
     <div id="choice-buttons-div">
@@ -85,6 +77,20 @@
         <button class="choice-off">OCTAVE</button>
         <button class="choice-off">MINOR NINTH</button>
         <button class="choice-off">MAJOR NINTH</button>
+      </div>
+    </div>
+    <div id="dropdown-section">
+      <div id="dropdown-wrapper">
+        <select>
+          <option id="ascending">Ascending (default)</option>
+          <option id="descending">Descending</option>
+          <option id="harmonic">Harmonic (simultaneous)</option>
+          <option id="ascend-descend">Ascending and descending</option>
+        </select>
+        <select>
+          <option id="fixed-root">Fixed root</option>
+          <option value="change-root">Changing root</option>
+        </select>
       </div>
     </div>
 
