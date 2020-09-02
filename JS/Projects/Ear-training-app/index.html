@@ -9,6 +9,14 @@
       <source src=" " type="audio/mpeg" />
     </audio>
 
+    <audio id="right-answer">
+      <source src="Audio/sound-effects/cash-register.mp3" type="audio/mpeg" />
+    </audio>
+
+    <audio id="wrong-answer">
+      <source src="Audio/sound-effects/wrong.mp3" type="audio/mpeg" />
+    </audio>
+
     <!--<audio id="min-2-sound">
       <source src="Audio/min-2nd.mp3" type="audio/mpeg" />
     </audio>
@@ -51,17 +59,19 @@
       <audio id="maj-9-sound">
           <source src="Audio/maj-9th.mp3" type="audio/mpeg" />
         </audio>-->
-
-    <h2 id="first-h2">
-      SCORE:&nbsp;<span id="score-num">0</span>&nbsp;out of 10
-    </h2>
+    <div id="heading-wrapper">
+      <h2 id="first-h2">
+        SCORE:&nbsp;<span id="score-num">0</span>&nbsp;out of 10
+      </h2>
+    </div>
 
     <div id="start-wrapper">
       <button id="start-button">START</button>
       <!--<audio id="hear-again" controls>-->
     </div>
-    <h2 id="choice-heading">CHOICES</h2>
+
     <div id="choice-buttons-div">
+      <h2 id="choice-heading">CHOICES</h2>
       <div id="choice">
         <button class="choice-off">MINOR SECOND</button>
         <button class="choice-off">MAJOR SECOND</button>

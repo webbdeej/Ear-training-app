@@ -75,9 +75,16 @@ function choiceButtons(innerText) {
 
 document.getElementById("start-button").addEventListener("click", function () {
   buttonDisable();
+  this.textContent = "HEAR NEXT QUESTION";
   let random = Math.floor(Math.random() * intervalArray.length);
   let randomInterval = intervalArray[random];
-  triggerSounds(randomInterval);
+  if (questionNum < 10) {
+    triggerSounds(randomInterval);
+  }
+  if (questionNum === 9) {
+    document.getElementById("start-button").style.display = "none";
+  }
+
   console.log(intervalArray[random]);
   questionNum++;
   console.log("this is question " + questionNum);
@@ -187,14 +194,19 @@ function clear(array) {
 function setScore(randomInterval) {
   let score = document.getElementById("score-num");
   let num = +score.textContent;
+  let correct = document.getElementById("right-answer");
+  let wrong = document.getElementById("wrong-answer");
   for (i in chooseButtons) {
     chooseButtons[i].onclick = function (e) {
       if (this.textContent === randomInterval) {
-        alert("That's right!");
+        correct.play();
         num++;
-        score.textContent = num;
+        if (num <= 10) {
+          score.textContent = num;
+        }
       } else if (this.textContent !== randomInterval) {
-        alert("That's the wrong answer!");
+        wrong.play();
+        num--;
       }
     };
   }
