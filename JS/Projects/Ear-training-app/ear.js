@@ -26,12 +26,18 @@ let soundFiles = {
   "MAJOR NINTH": "maj-9th.mp3",
 };
 
+let audio = document.getElementById("my-audio");
+let ascending = document.getElementById("ascending");
+let descending = document.getElementById("descending");
+let ascendDescend = document.getElementById("ascend-descend");
+let fixedRoot = document.getElementById("fixed-root");
+let changeRoot = document.getElementById("change-root");
+
 //when side buttons are clicked, this toggles the 'on' class
 for (let i = 0; i < sideButtons.length; i++) {
   if (sideButtons[i].textContent !== "RANDOM") {
     sideButtons[i].onclick = function (e) {
       //let textContent = this.textContent;
-
       this.classList.toggle("on");
       let classArray = this.className.split(" ");
       let buttonNum = +classArray[0];
@@ -50,13 +56,15 @@ for (let i = 0; i < sideButtons.length; i++) {
         console.log(intervalArray);
         chooseButtons[i - 1].classList.remove("choice-off");
       } else {
-        this.style.backgroundColor = "";
-        chooseButtons[i - 1].classList.add("choice-off");
-        console.log("text for this button is " + this.textContent);
-        let intIndex = intervalArray.indexOf(this.textContent);
-        intervalArray.splice(intIndex, 1);
-        console.log(intervalArray);
-        sideArray.splice(index, 1);
+        if (intervalArray.length > 1) {
+          this.style.backgroundColor = "";
+          chooseButtons[i - 1].classList.add("choice-off");
+          console.log("text for this button is " + this.textContent);
+          let intIndex = intervalArray.indexOf(this.textContent);
+          intervalArray.splice(intIndex, 1);
+          console.log(intervalArray);
+          sideArray.splice(index, 1);
+        }
       }
     };
   }
@@ -74,52 +82,70 @@ function choiceButtons(innerText) {
 }
 
 document.getElementById("start-button").addEventListener("click", function () {
-  buttonDisable();
-  this.textContent = "HEAR NEXT QUESTION";
-  let random = Math.floor(Math.random() * intervalArray.length);
-  let randomInterval = intervalArray[random];
-  if (questionNum < 10) {
-    triggerSounds(randomInterval);
-  }
-  if (questionNum === 9) {
-    document.getElementById("start-button").style.display = "none";
+  for (i in chooseButtons) {
+    chooseButtons[i].disabled = false;
   }
 
-  console.log(intervalArray[random]);
-  questionNum++;
-  console.log("this is question " + questionNum);
-  setScore(randomInterval);
-  document.getElementById("choice").style.visibility = "visible";
-  document.getElementById("choice-heading").style.visibility = "visible";
+  if (intervalArray.length >= 1) {
+    buttonDisable();
+    this.textContent = "HEAR NEXT QUESTION";
+    let random = Math.floor(Math.random() * intervalArray.length);
+    let randomInterval = intervalArray[random];
+    if (questionNum < 10) {
+      triggerSounds(randomInterval);
+    }
+    if (questionNum === 9) {
+      document.getElementById("start-button").disabled = true;
+    }
+
+    console.log(intervalArray[random]);
+    questionNum++;
+    console.log("this is question " + questionNum);
+    setScore(randomInterval);
+    document.getElementById("choice").style.visibility = "visible";
+    document.getElementById("choice-heading").style.visibility = "visible";
+  }
 });
 
 function triggerSounds(randomInterval) {
-  let audio = document.getElementById("my-audio");
-  let ascending = document.getElementById("ascending");
-  let descending = document.getElementById("descending");
-  let ascendDescend = document.getElementById("ascend-descend");
   let ascendAudio = "Audio/ascending/" + soundFiles[randomInterval];
   let descendAudio = "Audio/descending/" + soundFiles[randomInterval];
   let harmonicAudio = "Audio/harmonic/" + soundFiles[randomInterval];
 
-  if (ascending.selected) {
-    audio.setAttribute("src", ascendAudio);
-  } else if (descending.selected === true) {
-    audio.setAttribute("src", descendAudio);
-  } else if (harmonic.selected) {
-    audio.setAttribute("src", harmonicAudio);
-  } else if (ascendDescend.selected === true) {
-    let whichOne = Math.floor(Math.random() * 2);
-    console.log("random num = " + whichOne);
-    whichOne === 0
-      ? audio.setAttribute("src", ascendAudio)
-      : audio.setAttribute("src", descendAudio);
+  if (fixedRoot.selected) {
+    if (ascending.selected) {
+      audio.setAttribute("src", ascendAudio);
+    } else if (descending.selected === true) {
+      audio.setAttribute("src", descendAudio);
+    } else if (harmonic.selected) {
+      audio.setAttribute("src", harmonicAudio);
+    } else if (ascendDescend.selected === true) {
+      let whichOne = Math.floor(Math.random() * 2);
+      console.log("random num = " + whichOne);
+      whichOne === 0
+        ? audio.setAttribute("src", ascendAudio)
+        : audio.setAttribute("src", descendAudio);
+    }
+  } else if (changeRoot.selected === true) {
+    changingRoot(randomInterval);
   }
+
   audio.play();
-  //document.getElementById("my-audio").play;
   console.log(audio);
-  //audio.play();
-  //document.getElementById("my-audio").play();
+}
+
+function changingRoot(randomInterval) {
+  let assign = Math.floor(Math.random() * 3);
+  let changeAscend =
+    "Audio/ascending/changing-root/" +
+    assign +
+    "-" +
+    soundFiles[randomInterval];
+  if (changeRoot.selected && ascending.selected) {
+    console.log("this is changeAscend: " + changeAscend);
+    console.log(assign);
+    audio.setAttribute("src", changeAscend);
+  }
 }
 
 /*switch(randomInterval) {
@@ -199,6 +225,7 @@ function setScore(randomInterval) {
   for (i in chooseButtons) {
     chooseButtons[i].onclick = function (e) {
       if (this.textContent === randomInterval) {
+        this.disabled = true;
         correct.play();
         num++;
         if (num <= 10) {
@@ -206,7 +233,9 @@ function setScore(randomInterval) {
         }
       } else if (this.textContent !== randomInterval) {
         wrong.play();
-        num--;
+        if (num >= 0) {
+          num--;
+        }
       }
     };
   }

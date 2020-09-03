@@ -78,7 +78,7 @@ select {
   top: 80px;
   display: inline-flex;
   flex-wrap: wrap;
-  left: 10px;
+  justify-content: center;
 }
 
 #choice-heading {
@@ -92,7 +92,7 @@ select {
   position: relative;
   background-color: #97b76e;
   border: none;
-  left: 100px;
+  left: 50px;
   height: 50px;
   border-radius: 5px;
   margin-top: 20px;
