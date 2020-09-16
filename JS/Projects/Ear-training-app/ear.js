@@ -81,6 +81,8 @@ function choiceButtons(innerText) {
   }
 }
 
+randomArray = [];
+
 document.getElementById("start-button").addEventListener("click", function () {
   for (i in chooseButtons) {
     chooseButtons[i].disabled = false;
@@ -90,6 +92,9 @@ document.getElementById("start-button").addEventListener("click", function () {
     buttonDisable();
     this.textContent = "HEAR NEXT QUESTION";
     let random = Math.floor(Math.random() * intervalArray.length);
+
+    randomArray.push(random);
+    console.log(randomArray);
     let randomInterval = intervalArray[random];
     if (questionNum < 10) {
       triggerSounds(randomInterval);
@@ -129,9 +134,23 @@ function triggerSounds(randomInterval) {
   } else if (changeRoot.selected === true) {
     changingRoot(randomInterval);
   }
-
+  audioSpeed(audio);
   audio.play();
   console.log(audio);
+}
+
+function audioSpeed(audio) {
+  let mediSpeed = document.getElementById("medium");
+  let slowSpeed = document.getElementById("slow");
+  let fastSpeed = document.getElementById("fast");
+
+  if (mediSpeed.selected) {
+    audio.playbackRate = 1;
+  } else if (slowSpeed.selected) {
+    audio.playbackRate = 0.7;
+  } else if (fastSpeed.selected) {
+    audio.playbackRate = 1.7;
+  }
 }
 
 function changingRoot(randomInterval) {

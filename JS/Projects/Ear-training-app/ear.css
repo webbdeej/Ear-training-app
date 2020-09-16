@@ -7,14 +7,15 @@ body {
   position: relative;
   top: 50px;
   padding-top: 30px;
-  left: 40px;
+  margin-bottom: 40px;
+  left: 10px;
 }
 
 #first-h2 {
   position: relative;
   top: 10px;
-
-  font-size: 16px;
+  font-size: 25px;
+  font-family: arial;
 }
 
 button {
@@ -51,7 +52,15 @@ select {
   position: relative;
   margin-left: 25px;
   left: 101px;
-  height: 40px;
+  height: 60px;
+  background-color: white;
+  border-radius: 5px;
+  width: 170px;
+  border-width: medium;
+}
+
+#start-button:hover {
+  background-color: #848484;
 }
 
 #hear-again {
@@ -63,7 +72,7 @@ select {
 #choice-buttons-div {
   display: flex;
   width: 750px;
-  height: 300px;
+  height: 400px;
   position: relative;
   top: 50px;
   left: 130px;
@@ -76,6 +85,7 @@ select {
   height: 200px;
   position: relative;
   top: 80px;
+  left: 10px;
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -84,8 +94,9 @@ select {
 #choice-heading {
   visibility: hidden;
   position: relative;
-  left: 410px;
+  left: 420px;
   margin-top: 50px;
+  font-family: arial;
 }
 
 #choice button {
