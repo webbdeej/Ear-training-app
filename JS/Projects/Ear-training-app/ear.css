@@ -1,8 +1,6 @@
 body {
   width: 850px;
-  padding-top: 50px;
 }
-
 #heading-wrapper {
   position: relative;
   top: 50px;
@@ -11,9 +9,35 @@ body {
   left: 10px;
 }
 
+#myProgress {
+  width: 70%;
+  background-color: #bbbbbb;
+  position: relative;
+  left: 320px;
+  top: 0px;
+  margin-bottom: 30px;
+}
+
+#myBar {
+  width: 0%;
+  height: 30px;
+  background-color: #428bca;
+}
+
+#question-wrap {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  left: 200px;
+}
+
+#question-num {
+}
+
 #first-h2 {
   position: relative;
-  top: 10px;
+  bottom: 50px;
   font-size: 25px;
   font-family: arial;
 }
@@ -29,7 +53,7 @@ select {
   position: relative;
   width: 200px;
   height: 40px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   border-radius: 5px;
   background-color: white;
 }
@@ -38,20 +62,20 @@ select {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  margin-top: 10px;
 }
 
 #start-wrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   position: relative;
-  top: 50px;
-  margin-left: 400px;
+  top: 60px;
+  margin-left: 420px;
+  justify-content: center;
 }
 
 #start-button {
   position: relative;
-  margin-left: 25px;
-  left: 101px;
   height: 60px;
   background-color: white;
   border-radius: 5px;
@@ -66,7 +90,18 @@ select {
 #hear-again {
   width: 100%;
   max-width: 250px;
-  margin-left: 65px;
+
+  width: 170px;
+  height: 60px;
+  background-color: white;
+  border-radius: 5px;
+  border-width: medium;
+  position: relative;
+  display: none;
+}
+
+#hear-again:hover {
+  background-color: #848484;
 }
 
 #choice-buttons-div {
@@ -74,10 +109,9 @@ select {
   width: 750px;
   height: 400px;
   position: relative;
-  top: 50px;
-  left: 130px;
+  top: 90px;
+  left: 140px;
   visibility: hidden;
-  border: 2px solid black;
 }
 
 #choice {
@@ -85,7 +119,7 @@ select {
   height: 200px;
   position: relative;
   top: 80px;
-  left: 10px;
+  left: 15px;
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -94,7 +128,7 @@ select {
 #choice-heading {
   visibility: hidden;
   position: relative;
-  left: 420px;
+  left: 430px;
   margin-top: 50px;
   font-family: arial;
 }
@@ -119,7 +153,7 @@ select {
 
 #dropdown-section {
   position: relative;
-  bottom: 400px;
+  bottom: 580px;
   left: 900px;
 }
 
@@ -134,7 +168,7 @@ select {
 
 #right-buttons {
   position: relative;
-  bottom: 200px;
+  bottom: 390px;
 }
 
 #right-buttons button {

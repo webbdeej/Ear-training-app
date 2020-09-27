@@ -5,6 +5,7 @@ let chooseButtons = document
   .getElementById("choice-buttons-div")
   .getElementsByTagName("button");
 let chooseDiv = document.getElementById("choice-buttons-div");
+let choice = document.getElementById("choice").getElementsByTagName("*");
 let intervalArray = [];
 let questionNum = 0;
 let sideArray = [];
@@ -32,7 +33,7 @@ let descending = document.getElementById("descending");
 let ascendDescend = document.getElementById("ascend-descend");
 let fixedRoot = document.getElementById("fixed-root");
 let changeRoot = document.getElementById("change-root");
-
+let repeat = document.getElementById("hear-again");
 //when side buttons are clicked, this toggles the 'on' class
 for (let i = 0; i < sideButtons.length; i++) {
   if (sideButtons[i].textContent !== "RANDOM") {
@@ -109,8 +110,19 @@ document.getElementById("start-button").addEventListener("click", function () {
     setScore(randomInterval);
     document.getElementById("choice").style.visibility = "visible";
     document.getElementById("choice-heading").style.visibility = "visible";
+    repeat.style.display = "block";
   }
 });
+
+let width = 0;
+
+function progress() {
+  let elem = document.getElementById("myBar");
+  if (width < 100) {
+    width += 10;
+    elem.style.width = width + "%";
+  }
+}
 
 function triggerSounds(randomInterval) {
   let ascendAudio = "Audio/ascending/" + soundFiles[randomInterval];
@@ -166,6 +178,10 @@ function changingRoot(randomInterval) {
     audio.setAttribute("src", changeAscend);
   }
 }
+
+repeat.addEventListener("click", function () {
+  audio.play();
+});
 
 /*switch(randomInterval) {
     case "MINOR SECOND":
@@ -239,24 +255,35 @@ function clear(array) {
 function setScore(randomInterval) {
   let score = document.getElementById("score-num");
   let num = +score.textContent;
+  let question = document.getElementById("question-num");
   let correct = document.getElementById("right-answer");
   let wrong = document.getElementById("wrong-answer");
   for (i in chooseButtons) {
     chooseButtons[i].onclick = function (e) {
+      choiceDisable();
       if (this.textContent === randomInterval) {
-        this.disabled = true;
         correct.play();
         num++;
+        question.textContent = questionNum * 10;
+        progress();
         if (num <= 10) {
           score.textContent = num;
         }
       } else if (this.textContent !== randomInterval) {
         wrong.play();
+        question.textContent = questionNum * 10;
+        progress();
         if (num >= 0) {
           num--;
         }
       }
     };
+  }
+}
+
+function choiceDisable() {
+  for (var i = 0; i < choice.length; i++) {
+    choice[i].disabled = true;
   }
 }
 
